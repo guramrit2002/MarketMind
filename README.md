@@ -13,6 +13,7 @@ and [.claude/CODING_STANDARDS.md](.claude/CODING_STANDARDS.md) for coding standa
 ```bash
 pip install -r requirements-dev.txt
 pip install -e .
+cp .env.example .env   # optional, defaults work without it
 ```
 
 ## Run
