@@ -21,6 +21,21 @@ pip install -e .
 uvicorn app.main:app --reload
 ```
 
+## Run with Docker
+
+```bash
+docker compose up --build
+```
+
+This starts the app (with live reload) on `http://localhost:8000`, plus
+Postgres (with pgvector) on host port `5434` and Redis on host port `6380`
+(remapped to avoid clashing with other local services; the app talks to them
+internally on the standard `5432`/`6379`).
+
+```bash
+docker compose down -v   # stop and remove volumes
+```
+
 ## Test
 
 ```bash
