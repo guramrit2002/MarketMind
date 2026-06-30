@@ -58,5 +58,5 @@ pytest
 ```bash
 ruff check .
 black --check .
-mypy app
+mypy app scripts
 ```
