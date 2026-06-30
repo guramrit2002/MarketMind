@@ -21,4 +21,4 @@ htmlcov/
 
 .DS_Store
 
-.ignore/claude_logs/
+.ignore/
