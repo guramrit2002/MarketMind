@@ -37,6 +37,16 @@ internally on the standard `5432`/`6379`).
 docker compose down -v   # stop and remove volumes
 ```
 
+## Database / Migrations
+
+```bash
+alembic upgrade head                          # apply migrations
+alembic revision --autogenerate -m "message"   # generate a new migration
+```
+
+Requires `DATABASE_URL` to point at a reachable Postgres (e.g. via
+`docker compose up -d db`).
+
 ## Test
 
 ```bash
