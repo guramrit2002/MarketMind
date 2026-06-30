@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); tp=$(echo \"$input\" | jq -r '.transcript_path'); sid=$(echo \"$input\" | jq -r '.session_id'); dest=\"${CLAUDE_PROJECT_DIR:-.}/.ignore/claude_logs\"; mkdir -p \"$dest\"; if [ -f \"$tp\" ]; then cp \"$tp\" \"$dest/${sid}.jsonl\"; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
