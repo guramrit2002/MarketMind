@@ -4,6 +4,9 @@ from uuid import UUID, uuid4
 
 from app.domain.entities.message import Message
 from app.domain.enums import ConversationStatus, MessageRole
+from app.domain.state_machine import assert_can_transition
+
+TERMINAL_STATUSES = frozenset({ConversationStatus.COMPLETED, ConversationStatus.ABANDONED})
 
 
 @dataclass
@@ -11,9 +14,9 @@ class Conversation:
     """
     Aggregate root for a chat session.
 
-    Holds the message history and current status. Status is a plain field here;
-    the rules governing which status transitions are legal live in the
-    conversation state machine (MM-014).
+    Holds the message history and current status. Status transitions go through
+    transition_to (and its semantic helpers), which enforce the legal-move rules
+    defined in the conversation state machine.
     """
 
     id: UUID = field(default_factory=uuid4)
@@ -32,3 +35,22 @@ class Conversation:
     @property
     def last_message(self) -> Message | None:
         return self.messages[-1] if self.messages else None
+
+    @property
+    def is_terminal(self) -> bool:
+        return self.status in TERMINAL_STATUSES
+
+    def transition_to(self, target: ConversationStatus) -> None:
+        """Move the conversation to a new status, enforcing the legal-move rules."""
+        assert_can_transition(self.status, target)
+        self.status = target
+        self.updated_at = datetime.now(UTC)
+
+    def start_collecting(self) -> None:
+        self.transition_to(ConversationStatus.COLLECTING)
+
+    def complete(self) -> None:
+        self.transition_to(ConversationStatus.COMPLETED)
+
+    def abandon(self) -> None:
+        self.transition_to(ConversationStatus.ABANDONED)
