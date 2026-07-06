@@ -22,7 +22,7 @@ A user can chat with the system and a structured product is extracted.
 
 ### Tickets
 
-- [ ] MM-001 Project Setup
+- [x] MM-001 Project Setup
 - [ ] MM-002 Docker
 - [ ] MM-003 Config
 - [ ] MM-004 Database
