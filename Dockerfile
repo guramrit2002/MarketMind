@@ -15,7 +15,10 @@ ENV PATH=/root/.local/bin:$PATH
 
 COPY app ./app
 COPY alembic.ini .
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 EXPOSE 8000
 
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
