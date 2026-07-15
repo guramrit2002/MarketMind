@@ -8,6 +8,11 @@ services:
     volumes:
       - ./app:/app/app
     command: ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    # Load local secrets (e.g. GROQ_API_KEY) if a .env exists; the explicit
+    # environment below still overrides DATABASE_URL/REDIS_URL for the container.
+    env_file:
+      - path: .env
+        required: false
     environment:
       DATABASE_URL: postgresql+asyncpg://marketmind:marketmind@db:5432/marketmind
       REDIS_URL: redis://redis:6379/0
