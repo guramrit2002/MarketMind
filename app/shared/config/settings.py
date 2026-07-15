@@ -1,6 +1,7 @@
 from functools import lru_cache
 from typing import Literal
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -13,6 +14,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://marketmind:marketmind@localhost:5432/marketmind"
     redis_url: str = "redis://localhost:6379/0"
     llm_model: str = "llama-3.3-70b-versatile"
+    groq_api_key: SecretStr = SecretStr("")
 
 
 @lru_cache

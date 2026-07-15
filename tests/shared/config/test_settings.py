@@ -10,6 +10,7 @@ def test_settings_defaults() -> None:
     assert settings.database_url.startswith("postgresql+asyncpg://")
     assert settings.redis_url.startswith("redis://")
     assert settings.llm_model == "llama-3.3-70b-versatile"
+    assert settings.groq_api_key.get_secret_value() == ""
 
 
 def test_settings_reads_env_overrides(monkeypatch) -> None:
