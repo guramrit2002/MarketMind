@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     debug: bool = False
     database_url: str = "postgresql+asyncpg://marketmind:marketmind@localhost:5432/marketmind"
     redis_url: str = "redis://localhost:6379/0"
+    llm_model: str = "llama-3.3-70b-versatile"
 
 
 @lru_cache
