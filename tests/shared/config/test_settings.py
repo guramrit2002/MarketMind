@@ -9,6 +9,7 @@ def test_settings_defaults() -> None:
     assert settings.debug is False
     assert settings.database_url.startswith("postgresql+asyncpg://")
     assert settings.redis_url.startswith("redis://")
+    assert settings.llm_model == "llama-3.3-70b-versatile"
 
 
 def test_settings_reads_env_overrides(monkeypatch) -> None:
