@@ -37,12 +37,14 @@ class GroqProvider(LLMProvider):
                 "list[ChatCompletionMessageParam]",
                 [{"role": m.role.value, "content": m.content} for m in messages],
             )
+            logger.debug("llm.completion.request", model=self._model, payload=payload)
             response = await self._client.chat.completions.create(
                 model=self._model,
                 messages=payload,
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
+            logger.debug("llm.completion.response", model=self._model, response=response)
         except GroqError as exc:
             logger.exception("llm.completion.failed", model=self._model)
             raise LLMError(f"Groq completion failed: {exc}") from exc

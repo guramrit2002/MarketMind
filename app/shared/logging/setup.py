@@ -49,7 +49,7 @@ def configure_logging(settings: Settings) -> None:
 
     root_logger = logging.getLogger()
     root_logger.handlers = [handler]
-    root_logger.setLevel(logging.INFO)
+    root_logger.setLevel(logging.DEBUG if settings.debug else logging.INFO)
 
     # Silence noisy libraries in non-debug mode
     if not settings.debug:
